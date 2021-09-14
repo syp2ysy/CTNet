@@ -6,5 +6,6 @@ By Zechao Li, Yanpeng Sun, Liyan Zhang and Jinhui Tang
 ### CTNet framework
 ![framework](https://github.com/syp2ysy/CTNet/blob/main/imgs/framework.png)
 ### CCM and SCM Modules
-![CCM](https://github.com/syp2ysy/CTNet/blob/main/imgs/ccm%26scm.png){:height="50%" width="50%"}
+<img src="https://github.com/syp2ysy/CTNet/blob/main/imgs/ccm%26scm.png" width="200" height="200"/><br/>
+
 
