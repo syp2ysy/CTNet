@@ -6,10 +6,10 @@ By Zechao Li, Yanpeng Sun, Liyan Zhang and Jinhui Tang
 ### CTNet framework
 ![framework](https://github.com/syp2ysy/CTNet/blob/main/imgs/framework.png)
 ### CCM and SCM Modules
-<img src="https://github.com/syp2ysy/CTNet/blob/main/imgs/ccm%26scm.png" width="500" height="700"/><br/>
+<img src="https://github.com/syp2ysy/CTNet/blob/main/imgs/ccm%26scm.png" width="700" height="500"/><br/>
 ## Usage 
 ### 1. Install paddle
 To install [PaddlePaddle==2.0.2](https://www.paddlepaddle.org.cn/install/old?docurl=/documentation/docs/zh/install/conda/linux-conda.html) (The code is test in the environment with  ```Python=3.6, CUDA=11.2```)
 ### 2. Clone the resposity
-
+```git clone https://github.com/syp2ysy/CTNet.git```
 
