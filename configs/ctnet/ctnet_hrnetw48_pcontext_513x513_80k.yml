@@ -1,0 +1,6 @@
+_base_: './ctnet_hrnetw18_pcontext_520x520_80k.yml'
+
+model:
+  backbone:
+    type: HRNet_W48
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/hrnet_w48_ssld.tar.gz

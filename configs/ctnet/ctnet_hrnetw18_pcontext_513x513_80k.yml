@@ -1,0 +1,24 @@
+_base_: '../_base_/pascal_context.yml'
+
+model:
+  type: CTNet
+  backbone:
+    type: HRNet_W18
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/hrnet_w18_ssld.tar.gz
+  backbone_indices: [0]
+
+optimizer:
+  type: sgd
+
+learning_rate:
+  value: 0.01
+  decay:
+    type: poly
+    power: 0.9
+
+
+loss:
+  types:
+    - type: CrossEntropyLoss
+    - type: CrossEntropyLoss
+  coef: [1, 1]
