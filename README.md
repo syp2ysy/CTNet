@@ -16,5 +16,16 @@ To install [PaddlePaddle==2.0.2](https://www.paddlepaddle.org.cn/install/old?doc
    cd CTNet
    ```
 ### 3. Install Requirements
-  
+  ```
+  pre-commit
+  yapf
+  flake8
+  pyyaml >= 5.1
+  visualdl >= 2.0.0
+  opencv-python
+  tqdm
+  filelock
+  scipy
+  prettytable
+   ```
 
