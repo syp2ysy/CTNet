@@ -23,26 +23,6 @@ from paddle.fluid.layers import transpose
 
 @manager.MODELS.add_component
 class CTNet(nn.Layer):
-    """
-    The OCRNet implementation based on PaddlePaddle.
-    The original article refers to
-        Yuan, Yuhui, et al. "Object-Contextual Representations for Semantic Segmentation"
-        (https://arxiv.org/pdf/1909.11065.pdf)
-
-    Args:
-        num_classes (int): The unique number of target classes.
-        backbone (Paddle.nn.Layer): Backbone network.
-        backbone_indices (tuple): A tuple indicates the indices of output of backbone.
-            It can be either one or two values, if two values, the first index will be taken as
-            a deep-supervision feature in auxiliary layer; the second one will be taken as
-            input of pixel representation. If one value, it is taken by both above.
-        ocr_mid_channels (int, optional): The number of middle channels in OCRHead. Default: 512.
-        ocr_key_channels (int, optional): The number of key channels in ObjectAttentionBlock. Default: 256.
-        align_corners (bool): An argument of F.interpolate. It should be set to False when the output size of feature
-            is even, e.g. 1024x512, otherwise it is True, e.g. 769x769.  Default: False.
-        pretrained (str, optional): The path or url of pretrained model. Default: None.
-    """
-
     def __init__(self,
                  num_classes,
                  backbone,
@@ -91,16 +71,6 @@ class CTNet(nn.Layer):
 
 
 class CTHead(nn.Layer):
-    """
-    The Object contextual representation head.
-
-    Args:
-        num_classes(int): The unique number of target classes.
-        in_channels(tuple): The number of input channels.
-        ocr_mid_channels(int, optional): The number of middle channels in OCRHead. Default: 512.
-        ocr_key_channels(int, optional): The number of key channels in ObjectAttentionBlock. Default: 256.
-    """
-
     def __init__(self,
                  num_classes,
                  in_channels,
@@ -139,7 +109,7 @@ class CTHead(nn.Layer):
         return [logit, soft_regions], cls_app
 
     def init_weight(self):
-        """Initialize the parameters of model parts."""
+        
         for sublayer in self.sublayers():
             if isinstance(sublayer, nn.Conv2D):
                 param_init.normal_init(sublayer.weight, std=0.001)
@@ -169,7 +139,6 @@ class ccm_layer(nn.Layer):
         return x * y.expand_as(x), y
 
 class CCM(nn.Layer):
-    """Aggregation layer to compute the pixel-region representation."""
 
     def __init__(self, pixels_channels, regions_channels):
         super().__init__()
@@ -189,7 +158,6 @@ class CCM(nn.Layer):
 
 
 class SCM(nn.Layer):
-    """Aggregate the global object representation to update the representation for each pixel."""
 
     def __init__(self,
                  in_channels,
@@ -216,8 +184,6 @@ class SCM(nn.Layer):
 
 
 class scm_layer(nn.Layer):
-    """A self-attention module."""
-
     def __init__(self, in_channels, key_channels):
         super().__init__()
 

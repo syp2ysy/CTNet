@@ -36,8 +36,7 @@ def parse_args():
         '--batch_size',
         dest='batch_size',
         help='Mini batch size of one gpu or cpu',
-        type=int,
-        default=4)
+        type=int)
     parser.add_argument(
         '--learning_rate',
         dest='learning_rate',
