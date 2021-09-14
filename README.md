@@ -5,5 +5,6 @@ By Zechao Li, Yanpeng Sun, Liyan Zhang and Jinhui Tang
 ## Introduction
 ### CTNet framework
 ![framework](https://github.com/syp2ysy/CTNet/blob/main/imgs/framework.png)
-### CCM Module
-![CCM]()
+### CCM and SCM Modules
+![CCM](https://github.com/syp2ysy/CTNet/blob/main/imgs/ccm%26scm.png)
+
