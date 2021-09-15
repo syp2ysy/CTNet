@@ -226,8 +226,10 @@ class ResNet_vd(nn.Layer):
         dilation_dict = None
         if output_stride == 8:
             dilation_dict = {2: 2, 3: 4}
+            self.jpu=False
         elif output_stride == 16:
             dilation_dict = {3: 2}
+            self.jpu=False
         elif output_stride == 'jpu':
             dilation_dict= None
             self.jpu= True
