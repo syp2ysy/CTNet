@@ -29,8 +29,8 @@ To install [PaddlePaddle==2.0.2](https://www.paddlepaddle.org.cn/install/old?doc
   prettytable
    ```
 ### 4. Datasets
-- Download the [Cityscapes]{https://www.cityscapes-dataset.com/} dataset and [PASCAL Context]{https://www.cs.stanford.edu/~roozbeh/pascal-context/}.
-- ```
+- Download the [Cityscapes](https://www.cityscapes-dataset.com/) dataset and [PASCAL Context](https://www.cs.stanford.edu/~roozbeh/pascal-context/).
+```
 cd ./CTNet/tools
 python convert_voc2010.py
 python convert_cityscapes.py
