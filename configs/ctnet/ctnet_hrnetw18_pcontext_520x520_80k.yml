@@ -1,5 +1,8 @@
 _base_: '../_base_/pascal_context.yml'
 
+batch_size: 8
+iters: 80000
+
 model:
   type: CTNet
   backbone:
