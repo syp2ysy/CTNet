@@ -257,20 +257,6 @@ def train(model,
                         log_writer.add_scalar('Evaluate/mIoU', mean_iou, iter)
                         log_writer.add_scalar('Evaluate/Acc', acc, iter)
             batch_start = time.time()
-
-    # Calculate flops.
-    if local_rank == 0:
-
-        def count_syncbn(m, x, y):
-            x = x[0]
-            nelements = x.numel()
-            m.total_ops += int(2 * nelements)
-
-        _, c, h, w = images.shape
-        flops = paddle.flops(
-            model, [1, c, h, w],
-            custom_ops={paddle.nn.SyncBatchNorm: count_syncbn})
-
     # Sleep for half a second to let dataloader release resources.
     time.sleep(0.5)
     if use_vdl:
