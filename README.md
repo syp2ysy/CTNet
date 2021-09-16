@@ -1,4 +1,4 @@
-## CTNet: Context-based Tandem Network for Semantic Segmentation [paper](https://arxiv.org/abs/2104.09805)
+## [CTNet: Context-based Tandem Network for Semantic Segmentation](https://arxiv.org/abs/2104.09805)
 By Zechao Li, Yanpeng Sun, Liyan Zhang and Jinhui Tang
 ## Updates
 2021/09: Code based on [PaddlePaddle](https://www.paddlepaddle.org.cn/) released.
