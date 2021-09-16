@@ -10,7 +10,7 @@ train_dataset:
       max_scale_factor: 2.0
       scale_step_size: 0.25
     - type: RandomPaddingCrop
-      crop_size: [513, 513]
+      crop_size: [520, 520]
     - type: RandomHorizontalFlip
     - type: RandomDistort
       brightness_range: 0.4
@@ -24,7 +24,7 @@ val_dataset:
   dataset_root: ./data/VOCdevkit/VOC2010
   transforms:
     - type: Padding
-      target_size: [513, 513]
+      target_size: [520, 520]
     - type: Normalize
   mode: val
 
