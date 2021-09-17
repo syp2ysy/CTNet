@@ -1,4 +1,4 @@
-_base_: './ctnet_hrnetw18_pcontext_520x520_80k.yml'
+_base_: './ctnet_hrnetw18_pcontext_513x513_80k.yml'
 
 model:
   backbone:
