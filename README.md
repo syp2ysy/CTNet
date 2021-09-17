@@ -71,4 +71,16 @@ Cityscapes
 | CTNet  | ResNet-101 | √ | - | 80.8 |      81.3      | [model](https://drive.google.com/file/d/1674JWijTM96LDgMSLvUyGcgwWmEBz8o7/view?usp=sharing) |
 | CTNet | HRNet_w48 | - | - | 82.3 | 82.9 | [model](https://drive.google.com/file/d/1cKlpA7VmCR2KSapBDWu9xjVZ9tVEYKR5/view?usp=sharing) |
 
+## Citation
+If you find this work is helpful in your research, please cite:
+```
+@article{li2021ctnet,
+  title={CTNet: Context-based Tandem Network for Semantic Segmentation},
+  author={Li, Zechao and Sun, Yanpeng and Tang, Jinhui},
+  journal={arXiv preprint arXiv:2104.09805},
+  year={2021}
+}
+```
+## Acknowledgement
+Thanks [PaddleSeg](https://github.com/PaddlePaddle/PaddleSeg), [FastFCN](https://github.com/wuhuikai/FastFCN) and [HRNet](https://github.com/HRNet/HRNet-Semantic-Segmentation).
 
