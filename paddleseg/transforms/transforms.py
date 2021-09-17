@@ -463,7 +463,7 @@ class Padding:
     def __init__(self,
                  target_size,
                  im_padding_value=(127.5, 127.5, 127.5),
-                 label_padding_value=0):
+                 label_padding_value=255):
         if isinstance(target_size, list) or isinstance(target_size, tuple):
             if len(target_size) != 2:
                 raise ValueError(
