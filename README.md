@@ -35,3 +35,40 @@ cd ./CTNet/tools
 python convert_voc2010.py
 python convert_cityscapes.py
 ```
+### 5. Training
+
+```
+export CUDA_VISIBLE_DEVICES=0, 1
+python -m paddle.distributed.launch train.py \
+       --cfg ./configs/ctnet/ctnet_hrnetw48_cityscapes_1024x512_160k.yml \
+       --do_eval \
+       --use_vdl \
+       --save_interval 4000 \
+       --save_dir output_hr48_city
+```
+### 6. Evaluation
+Evaluation for SS
+```
+python val.py \
+       --config ./configs/ctnet/ctnet_hrnetw48_cityscapes_1024x512_160k.yml \
+       --model_path ./output_hr48_city/best_model/model.pdparams
+```
+Evaluation for MS+flip
+```
+python val.py \
+       --cfg ./configs/ctnet/ctnet_hrnetw48_cityscapes_1024x512_160k.yml \
+       --model_path ./output_hr48_city/best_model/model.pdparams \
+       --aug_eval \
+       --scales 0.75 1.0 1.25 1.5 1.75 \
+       --flip_horizontal
+```
+### 7. Results
+Cityscapes
+
+| Method | Backbone   | JPU  | Dilated | mIoU | mIoU (ms+flip) | Links |
+| :----: | :--------: | :--: | :--: | :--: | :---: | :----: |
+| CTNet  | ResNet-101 | - | √ |      |                |       |
+| CTNet  | ResNet-101 | √ | - | 80.8 |      81.3      | [model](https://drive.google.com/file/d/1674JWijTM96LDgMSLvUyGcgwWmEBz8o7/view?usp=sharing) |
+| CTNet | HRNet_w48 | - | - | 82.3 | 82.9 | [model](https://drive.google.com/file/d/1cKlpA7VmCR2KSapBDWu9xjVZ9tVEYKR5/view?usp=sharing) |
+
+
