@@ -1,0 +1,28 @@
+_base_: '../_base_/pascal_context.yml'
+
+batch_size: 8
+iters: 80000
+
+model:
+  type: CTNet
+  backbone:
+    type: ResNet101_vd
+    output_stride: jpu
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/resnet101_vd_ssld.tar.gz
+  backbone_indices: [2, 3]
+
+optimizer:
+  type: sgd
+
+learning_rate:
+  value: 0.001
+  decay:
+    type: poly
+    power: 0.9
+
+loss:
+  types:
+    - type: CrossEntropyLoss
+    - type: CrossEntropyLoss
+    - type: BCELoss
+  coef: [1, 0.3, 0.1]
