@@ -85,8 +85,8 @@ class CTHead(nn.Layer):
 
         self.indices = [-2, -1] if len(in_channels) > 1 else [-1, -1]
 
-        self.conv3x3_ocr = layers.ConvBNReLU(
-            in_channels[self.indices[1]], ocr_mid_channels, 3, padding=1)
+        self.conv3x3 = layers.ConvBNReLU(
+            in_channels[self.indices[1]], ocr_mid_channels, 3, padding=1)  #self.conv3x3_ocr
         self.cls_head = nn.Conv2D(ocr_mid_channels, self.num_classes, 1)
         self.aux_head = nn.Sequential(
             layers.ConvBNReLU(in_channels[self.indices[0]],
@@ -100,12 +100,12 @@ class CTHead(nn.Layer):
             self.indices[1]]
 
         soft_regions = self.aux_head(feat_shallow)
-        pixels = self.conv3x3_ocr(feat_deep)
+        pixels = self.conv3x3(feat_deep)
 
         context, cls_app, cls_matrix = self.ccm(pixels)
-        ocr = self.scm(context, cls_matrix)
+        scm_f = self.scm(context, cls_matrix)
         cls_app = cls_app.squeeze(-1)
-        logit = self.cls_head(ocr)
+        logit = self.cls_head(scm_f)
         return [logit, soft_regions], cls_app
 
     def init_weight(self):
