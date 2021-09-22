@@ -82,5 +82,5 @@ If you find this work is helpful in your research, please cite:
 }
 ```
 ## Acknowledgement
-Thanks to [PaddleSeg](https://github.com/PaddlePaddle/PaddleSeg), [FastFCN](https://github.com/wuhuikai/FastFCN) and [HRNet](https://github.com/HRNet/HRNet-Semantic-Segmentation) for their help in this work.
+Thanks to [PaddleSeg](https://github.com/PaddlePaddle/PaddleSeg), [FastFCN](https://github.com/wuhuikai/FastFCN) and [OCR](https://github.com/HRNet/HRNet-Semantic-Segmentation) for their help in this work.
 
