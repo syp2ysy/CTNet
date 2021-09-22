@@ -27,8 +27,8 @@ class CTNet(nn.Layer):
                  num_classes,
                  backbone,
                  backbone_indices,
-                 ocr_mid_channels=512,
-                 ocr_key_channels=256,
+                 mid_channels=512,
+                 key_channels=256,
                  align_corners=False,
                  pretrained=None):
         super().__init__()
@@ -40,8 +40,8 @@ class CTNet(nn.Layer):
         self.head = CTHead(
             num_classes=num_classes,
             in_channels=in_channels,
-            ocr_mid_channels=ocr_mid_channels,
-            ocr_key_channels=ocr_key_channels)
+            mid_channels=mid_channels,
+            key_channels=key_channels)
 
         self.align_corners = align_corners
         self.pretrained = pretrained
@@ -74,15 +74,13 @@ class CTHead(nn.Layer):
     def __init__(self,
                  num_classes,
                  in_channels,
-                 ocr_mid_channels=512,
-                 ocr_key_channels=256):
+                 mid_channels=512,
+                 key_channels=256):
         super().__init__()
 
         self.num_classes = num_classes
-        self.ccm = CCM(ocr_mid_channels, num_classes)
-        self.scm = SCM(ocr_mid_channels, ocr_key_channels,
-                                            ocr_mid_channels)
-
+        self.ccm = CCM(mid_channels, num_classes)
+        self.scm = SCM(mid_channels, key_channels, mid_channels)
         self.indices = [-2, -1] if len(in_channels) > 1 else [-1, -1]
 
         self.conv3x3 = layers.ConvBNReLU(
@@ -116,6 +114,7 @@ class CTHead(nn.Layer):
             elif isinstance(sublayer, (nn.BatchNorm, nn.SyncBatchNorm)):
                 param_init.constant_init(sublayer.weight, value=1.0)
                 param_init.constant_init(sublayer.bias, value=0.0)
+		
 class ccm_layer(nn.Layer):
     def __init__(self, k_size=[9, 17, 33, 65]):
         super(ccm_layer, self).__init__()
@@ -140,13 +139,13 @@ class ccm_layer(nn.Layer):
 
 class CCM(nn.Layer):
 
-    def __init__(self, pixels_channels, regions_channels):
+    def __init__(self, pixels_channels, class_channels):
         super().__init__()
         self.pixels_channels = pixels_channels
-        self.regions_channels = regions_channels
+        self.class_channels = class_channels
         self.ccm_layer = ccm_layer(k_size=[9,17,33,65])
         self.fc1 = nn.Sequential(
-			layers.ConvBN(pixels_channels, regions_channels, kernel_size=1),
+			layers.ConvBN(pixels_channels, class_channels, kernel_size=1),
 			nn.Softmax(axis=1))
     def forward(self, pixels):
         # pixels: from (n, c, h, w) to (n, h*w, c)
@@ -174,8 +173,8 @@ class SCM(nn.Layer):
             layers.ConvBNReLU(2 * in_channels, out_channels, 1),
             nn.Dropout2D(dropout_rate))
 
-    def forward(self, pixels, regions):
-        context = self.scm_block(pixels, regions)
+    def forward(self, pixels, category):
+        context = self.scm_block(pixels, category)
         pixels = self.conv3x3(pixels)
         feats = paddle.concat([context, pixels], axis=1)
         feats = self.conv1x1(feats)
