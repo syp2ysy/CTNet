@@ -190,41 +190,33 @@ class scm_layer(nn.Layer):
         self.in_channels = in_channels
         self.key_channels = key_channels
 
-        self.f_pixel = nn.Sequential(
-            layers.ConvBNReLU(in_channels, key_channels, 3, 1),   # or use "self.f_pixel = layers.ConvBNReLU(in_channels, key_channels, 3, 1) or use self.f_pixel = layers.ConvBNReLU(in_channels, key_channels, 1)"
-            layers.ConvBNReLU(key_channels, key_channels, 1))    # Not much difference in performance.
-	
+        self.f_query = layers.ConvBNReLU(in_channels, key_channels, 3, 1)  # or use "self.f_pixel = layers.ConvBNReLU(in_channels, key_channels, 1)"
+		
+        self.f_key = layers.ConvBNReLU(in_channels, key_channels, 1)  # or use "self.f_object = layers.ConvBNReLU(in_channels, key_channels, 1)"
 
-        self.f_object = nn.Sequential(
-            layers.ConvBNReLU(in_channels, key_channels, 1),    # or use "self.f_object = layers.ConvBNReLU(in_channels, key_channels, 1)"
-            layers.ConvBNReLU(key_channels, key_channels, 1))    # Not much difference in performance.
 
-        self.f_down = layers.ConvBNReLU(in_channels, key_channels, 1)
+        self.f_value = layers.ConvBNReLU(in_channels, key_channels, 1)
 
         self.f_up = layers.ConvBNReLU(key_channels, in_channels, 1)
         self.fuse = layers.ConvBNReLU(in_channels, in_channels, 3, 1)
     def forward(self, x, proxy):
         x_shape = paddle.shape(x)
-        # query : from (n, c1, h1, w1) to (n, h1*w1, key_channels)
-        query = self.f_pixel(x)
+     
+        query = self.f_query(x)
         query = paddle.reshape(query, (0, self.key_channels, -1))
         query = paddle.transpose(query, (0, 2, 1))
 
-        # key : from (n, c2, h2, w2) to (n, key_channels, h2*w2)
-        key = self.f_object(proxy)
+        key = self.f_key(proxy)
         key = paddle.reshape(key, (0, self.key_channels, -1))
 
-        # value : from (n, c2, h2, w2) to (n, h2*w2, key_channels)
-        value = self.f_down(proxy)
+        value = self.f_value(proxy)
         value = paddle.reshape(value, (0, self.key_channels, -1))
         value = paddle.transpose(value, (0, 2, 1))
 
-        # sim_map (n, h1*w1, h2*w2)
         sim_map = paddle.bmm(query, key)
         sim_map = (self.key_channels**-.5) * sim_map
         sim_map = F.softmax(sim_map, axis=-1)
 
-        # context from (n, h1*w1, key_channels) to (n , out_channels, h1, w1)
         context = paddle.bmm(sim_map, value)
         context = paddle.transpose(context, (0, 2, 1))
         context = paddle.reshape(context,
