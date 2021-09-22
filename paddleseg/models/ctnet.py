@@ -84,8 +84,8 @@ class CTHead(nn.Layer):
         self.indices = [-2, -1] if len(in_channels) > 1 else [-1, -1]
 
         self.conv3x3 = layers.ConvBNReLU(
-            in_channels[self.indices[1]], ocr_mid_channels, 3, padding=1)  #self.conv3x3_ocr
-        self.cls_head = nn.Conv2D(ocr_mid_channels, self.num_classes, 1)
+            in_channels[self.indices[1]], mid_channels, 3, padding=1)  #self.conv3x3_ocr
+        self.cls_head = nn.Conv2D(mid_channels, self.num_classes, 1)
         self.aux_head = nn.Sequential(
             layers.ConvBNReLU(in_channels[self.indices[0]],
                               in_channels[self.indices[0]], 1),
@@ -173,8 +173,8 @@ class SCM(nn.Layer):
             layers.ConvBNReLU(2 * in_channels, out_channels, 1),
             nn.Dropout2D(dropout_rate))
 
-    def forward(self, pixels, category):
-        context = self.scm_block(pixels, category)
+    def forward(self, pixels, cls_matrix):
+        context = self.scm_block(pixels, cls_matrix)
         pixels = self.conv3x3(pixels)
         feats = paddle.concat([context, pixels], axis=1)
         feats = self.conv1x1(feats)
@@ -193,10 +193,10 @@ class scm_layer(nn.Layer):
 		
         self.f_key = layers.ConvBNReLU(in_channels, key_channels, 1)  # or use "self.f_object = layers.ConvBNReLU(in_channels, key_channels, 1)"
 
-
         self.f_value = layers.ConvBNReLU(in_channels, key_channels, 1)
 
         self.f_up = layers.ConvBNReLU(key_channels, in_channels, 1)
+	
         self.fuse = layers.ConvBNReLU(in_channels, in_channels, 3, 1)
     def forward(self, x, proxy):
         x_shape = paddle.shape(x)
