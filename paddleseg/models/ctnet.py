@@ -218,8 +218,7 @@ class scm_layer(nn.Layer):
 
         context = paddle.bmm(sim_map, value)
         context = paddle.transpose(context, (0, 2, 1))
-        context = paddle.reshape(context,
-                                 (0, self.key_channels, x_shape[2], x_shape[3]))
+        context = paddle.reshape(context, (0, self.key_channels, x_shape[2], x_shape[3]))
         context = self.f_up(context)
         context = self.fuse(context + x)
         return context
