@@ -544,7 +544,7 @@ class RandomPaddingCrop:
     def __init__(self,
                  crop_size=(512, 512),
                  im_padding_value=(127.5, 127.5, 127.5),
-                 label_padding_value=0):
+                 label_padding_value=255):
         if isinstance(crop_size, list) or isinstance(crop_size, tuple):
             if len(crop_size) != 2:
                 raise ValueError(
