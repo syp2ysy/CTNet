@@ -188,10 +188,12 @@ class scm_layer(nn.Layer):
 
         self.in_channels = in_channels
         self.key_channels = key_channels
-
-        self.f_query = layers.ConvBNReLU(in_channels, key_channels, 3, 1)  # or use "self.f_pixel = layers.ConvBNReLU(in_channels, key_channels, 1)"
-		
-        self.f_key = layers.ConvBNReLU(in_channels, key_channels, 1)  # or use "self.f_object = layers.ConvBNReLU(in_channels, key_channels, 1)"
+	# or use --self.f_pixel = layers.ConvBNReLU(in_channels, key_channels, 1) 
+	# or use --self.f_pixel = nn.Sequential(layers.ConvBNReLU(in_channels, key_channels, 1),layers.ConvBNReLU(key_channels, key_channels, 1))
+        self.f_query = layers.ConvBNReLU(in_channels, key_channels, 3, 1)  
+	
+	# or use --self.f_object = nn.Sequential(layers.ConvBNReLU(in_channels, key_channels, 1),layers.ConvBNReLU(key_channels, key_channels, 1))
+        self.f_key = layers.ConvBNReLU(in_channels, key_channels, 1)  
 
         self.f_value = layers.ConvBNReLU(in_channels, key_channels, 1)
 
