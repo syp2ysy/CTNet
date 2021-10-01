@@ -33,7 +33,8 @@ To install [PaddlePaddle==2.0.2](https://www.paddlepaddle.org.cn/install/old?doc
 ```
 cd ./CTNet/tools
 python convert_cityscapes.py
-... ...
+   ... 
+   ...
 ```
 ### 5. Training
 
