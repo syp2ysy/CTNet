@@ -67,8 +67,8 @@ Cityscapes
 
 | Method | Backbone   | JPU  | Dilated | mIoU | mIoU (ms+flip) | Links |
 | :----: | :--------: | :--: | :--: | :--: | :---: | :----: |
-| CTNet  | ResNet-101 | - | √ |      |                |       |
-| CTNet  | ResNet-101 | √ | - | 80.4 |      81.2      | [model](https://drive.google.com/file/d/1BcUaR1K4UVx_hS3hYpzN2DS4_jTFCdni/view?usp=sharing) |
+| CTNet  | ResNet-101 | - | √ | 80.8 | 81.4 | [model](https://drive.google.com/file/d/1YA3Un5nVGAUnJ2QOwphaVlQoypYd_5WA/view?usp=sharing)      |
+| CTNet  | ResNet-101 | √ | - | 80.4 | 81.2 | [model](https://drive.google.com/file/d/1BcUaR1K4UVx_hS3hYpzN2DS4_jTFCdni/view?usp=sharing) |
 | CTNet | HRNet_w48 | - | - | 82.3 | 82.8 | [model](https://drive.google.com/file/d/1ZQEuq2IS2kHUc00IF71bAg0upg8qZO02/view?usp=sharing) |
 
 ## Citation
