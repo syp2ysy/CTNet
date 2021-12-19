@@ -76,10 +76,11 @@ Cityscapes
 If you find this work is helpful in your research, please cite:
 ```
 @article{li2021ctnet,
-  title={CTNet: Context-based Tandem Network for Semantic Segmentation},
-  author={Li, Zechao and Sun, Yanpeng and Tang, Jinhui},
-  journal={arXiv preprint arXiv:2104.09805},
-  year={2021}
+  title={Ctnet: Context-based tandem network for semantic segmentation},
+  author={Li, Zechao and Sun, Yanpeng and Zhang, Liyan and Tang, Jinhui},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2021},
+  publisher={IEEE}
 }
 ```
 ## Acknowledgement
